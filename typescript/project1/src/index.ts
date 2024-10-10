@@ -1,7 +1,20 @@
-function f(x:number): number {
-    if(x < 150) {
-        return 20;
-    }
-    return 21;
+type Draggable = {
+    drag: () => void
 }
-f();
+type Resizable = {
+    resize: () => void
+}
+
+let widget: Draggable & Resizable = {
+    drag: () => {},
+    resize: () => {}
+}
+
+// or 
+
+type UIWidget = Draggable & Resizable;
+
+let widget2: UIWidget = {
+    drag: () => {},
+    resize: () => {}
+}
