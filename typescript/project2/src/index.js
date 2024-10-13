@@ -49,4 +49,3 @@ function add(x, y) {
 function log(message) {
     console.log(message);
 }
-// Interfaces

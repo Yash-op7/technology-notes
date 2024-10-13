@@ -41,7 +41,7 @@ const user: {
 
 // Type
 type User = {
-    id: number,
+    id: number
     name: string
 }
 const user2: User = {
@@ -65,3 +65,18 @@ function log(message: string | number): void {
 }
 
 // Interfaces
+interface UserInterface {
+    readonly id: number,    // readonly properties
+    name: string,
+    age?:number     //optional properties in an interface
+}
+
+// you cannot do this with an interface
+type Point = number | string;
+
+// use interfaces with objects not single value primitives (ex Point)
+
+type MyFunc2 = {
+    a: (x:number) => void;
+    b: (y:number) => string;
+}
