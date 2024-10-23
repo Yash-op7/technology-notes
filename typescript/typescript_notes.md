@@ -267,3 +267,107 @@ log?.("logging message.");
 - use `tsc index.ts` to compile .ts to .js
 - also use `tsc --watch index`
 - use `tsc --init` to setup a configuration file, tsconfig.json
+
+# WDS: TS Generics
+## Generics in functions
+example:
+```ts
+function getFirst<ElementType>(arr: ElementType[]) {
+    return arr[0];
+}
+
+const numbers = [1, 2, 3];
+const firstNum = getFirst(numbers);
+
+console.log(firstNum);
+
+const words = ['bird', 'cat'];
+const firstWord = getFirst(words);
+
+console.log(firstWord);
+```
+- can pass multiple types, function `f<T, W, U>(userObjects: T[], ...)`
+- used commonly in `Map`:
+```ts
+const map = new Map<string, number>();
+map.set("adfs", 234);
+
+const adjacencyList = new Map<string, string[]>();
+adjacencyList.set("b", ["a", 'c']);
+
+const defaultTypedMap = new Map([["str", 234]]);
+// TS infers that this map is of <string, number> type
+
+// nested generics, pass generics to generics
+const map3 = new Map<string, Map<string, number>>();
+```
+## Generics in data, (types and interfaces)
+```ts
+// 1. Basic Structure
+type ApiResponse<Data> = {
+    data: Data,
+    statusCode: number
+};
+
+const countryApiResponse: ApiResponse<{ name: string, index: number}> = {
+    data: { name: 'India', index: 1},
+    statusCode: 200
+}
+
+// 2. Refactored example
+type User = {
+    name: string,
+    age: number
+}
+
+const userApiResponse: ApiResponse<User> = {
+    data: {
+        name: 'Ram',
+        age: 20
+    },
+    statusCode: 200
+}
+
+// 3. Defining default value of generic parameters
+type ApiResponse2<Data = { userId: number }> = {        // default value of generic parameter
+    data: Data,
+    statusCode: number
+}
+
+// 3.1 use default generic value
+const loggedInUser: ApiResponse2 = {
+    data: {
+        userId: 20
+    },
+    statusCode: 404
+};
+
+// 3.2 override default generic parameter value
+const newUser: ApiResponse2<{ username: string, password: string }> = {
+    data: {
+        username: 'user1',
+        password: 'user123'
+    },
+    statusCode:201
+}
+
+// 4.1 We can be specific on the allowed values of the generic type
+// for example if we know our API response will always be an object then
+type ApiResponse3<Data extends object> = {
+    data: Data,
+    isError: boolean
+};
+
+const response: ApiResponse3<{value: number[], statusCode: number}> = {
+    data: {
+        value: [1, 2, 3],
+        statusCode: 200
+    },
+    isError: false
+}
+
+// this wont be allowed
+// const response2: ApiResponse3<string> = {
+//     data: "sdf",
+//     isError: true
+// }

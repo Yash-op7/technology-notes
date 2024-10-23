@@ -80,3 +80,5 @@ type MyFunc2 = {
     a: (x:number) => void;
     b: (y:number) => string;
 }
+
+export const balls = 1;
