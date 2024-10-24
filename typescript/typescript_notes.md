@@ -371,3 +371,8 @@ const response: ApiResponse3<{value: number[], statusCode: number}> = {
 //     data: "sdf",
 //     isError: true
 // }
+```
+## Better try-catch
+- many disadvantages of using try catch, such as have to declare the variable as let instead of const if fetching a user, the catch can catch irrelevant errors and mislead us, a lot of boiler plate.
+### Solution 1: write a separate function which returns an array of error and successState
+```ts

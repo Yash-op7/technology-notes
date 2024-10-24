@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.balls = void 0;
 // Basic Types
 let id = 5;
 let company = "Leetcode";
@@ -50,3 +52,4 @@ function add(x, y) {
 function log(message) {
     console.log(message);
 }
+exports.balls = 1;
